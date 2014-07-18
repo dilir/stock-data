@@ -1,0 +1,15 @@
+##### Author : Dilir Khan ## http://analytics.dilir.net #### July 15, 2014###
+#Language: R
+r.page <- readLines("http://www.stockbangladesh.com/users/index")
+#r.page <- readLines("stock.dat")
+spot = grep("<h3>INDEX MOVER", r.page)
+print(spot)
+stop("")
+# get stock symbol & Price
+r1=regexec("([A-Z]+)</",c(r.page[spot+21], r.page[spot+28], r.page[spot+35], r.page[spot+42], r.page[spot+49]))
+m1=regmatches(c(r.page[spot+21], r.page[spot+28], r.page[spot+35], r.page[spot+42], r.page[spot+49]), r1)
+r2=regexec("([0-9]+\\.?[0-9]+)</td>",c(r.page[spot+22], r.page[spot+29], r.page[spot+36], r.page[spot+43], r.page[spot+44]))
+m2=regmatches(c(r.page[spot+22], r.page[spot+29], r.page[spot+36], r.page[spot+43], r.page[spot+44]), r2)
+for (i in 1:length(m1)){
+  print(paste(m1[[i]][1+1], m2[[i]][1+1], sep= " -> "))
+}
